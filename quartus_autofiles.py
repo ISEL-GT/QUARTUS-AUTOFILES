@@ -16,7 +16,7 @@ import os
 
 # Finds the first .qsf file in the current working directory
 TEST_MODE = False
-base_path = "../.hardware" if TEST_MODE else "."
+base_path = "../../VHDL/SEM2.LIC.PROJ.ROULETTE/.hardware" if TEST_MODE else "."
 qsf_filepath =  os.path.join(base_path, [file for file in os.listdir(base_path) if file.endswith(".qsf")][0])
 found_vhd = list()
 
@@ -28,12 +28,9 @@ def find_vhd(path):
     """
     for root, dirs, files in os.walk(path):
 
-        if not dirs:
-            # If the directory is not the one where the .qsf file is, we can assume that we are at the bottom of the tree
-
-            for file in files:
-                filepath = os.path.join(root, file).replace("\\", "/")[2:]
-                if file.endswith(".vhd"): found_vhd.append(filepath)
+        for file in files:
+            filepath = os.path.join(root, file).replace("\\", "/")[2:]
+            if file.endswith(".vhd"): found_vhd.append(filepath)
 
         for directory in dirs:
             find_vhd(os.path.join(root, directory))
